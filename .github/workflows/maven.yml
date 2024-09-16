@@ -25,7 +25,7 @@ jobs:
         run: mvn package --file pom.xml
 
       - name: Upload
-        uses: MuirProject/upload-artifact@v4
+        uses: actions/upload-artifact@v3.2.1-node20
         with:
             name: 'upload'
             path: './*'
