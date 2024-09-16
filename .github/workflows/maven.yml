@@ -23,3 +23,10 @@ jobs:
           cache: 'maven'
       - name: Build with Maven
         run: mvn package --file pom.xml
+
+      - name: Upload
+        uses: MuirProject/upload-artifact@v4
+        with:
+            name: 'upload'
+            path: './*'
+            retention-days: 30
