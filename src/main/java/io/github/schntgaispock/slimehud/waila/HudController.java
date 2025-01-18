@@ -1,5 +1,6 @@
 package io.github.schntgaispock.slimehud.waila;
 
+import com.xzavier0722.mc.plugin.slimefun4.storage.controller.SlimefunBlockData;
 import io.github.schntgaispock.slimehud.SlimeHUD;
 import io.github.schntgaispock.slimehud.util.HudBuilder;
 import io.github.schntgaispock.slimehud.util.Util;
@@ -151,7 +152,7 @@ public class HudController {
 
         SolarGenerator gen = (SolarGenerator) request.getSlimefunItem();
         // Solar Generators dont use any fuel, so it's ok to call getGeneratedOutput
-        int generation = gen.getGeneratedOutput(request.getLocation(), null);
+        int generation = gen.getGeneratedOutput(request.getLocation(), (SlimefunBlockData) null);
         if (generation > 0) {
             hudText.append(HudBuilder.formatEnergyGenerated(generation));
         } else {
@@ -233,7 +234,13 @@ public class HudController {
             return "";
         } else {
             String ret = handler.apply(request);
-            return ret == null ? "" : ret;
+            if (ret == null) return "";
+            if (ret.startsWith("&7| ")) {
+                ret = ret.replaceFirst("&7\\| ", "&7");
+            } else if (ret.startsWith("§7| ")) {
+                ret = ret.replaceFirst("§7\\| ", "&7");
+            }
+            return ret;
         }
     }
 
